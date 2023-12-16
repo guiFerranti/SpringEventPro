@@ -1,16 +1,16 @@
 package com.guiFerranti.SpringEventPro.service;
 
 import com.guiFerranti.SpringEventPro.domain.user.User;
-import com.guiFerranti.SpringEventPro.domain.user.UserRepository;
+import com.guiFerranti.SpringEventPro.infra.repository.UserRepository;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataDetails;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataList;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataRegistration;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserUpdateInfo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public User saveUser(UserDataRegistration dados) {
         User user = new User(dados);
         user.setSenha(dados.senha(), passwordEncoder);
@@ -34,7 +35,7 @@ public class UserService {
         return repository.findAll(pagination).map(UserDataList::new);
     }
 
-
+    @Transactional
     public UserDataDetails updateUser(UserUpdateInfo dados) {
         var user = repository.getReferenceById(dados.id());
         if (dados.email() != null) {
@@ -51,5 +52,11 @@ public class UserService {
         }
 
         return new UserDataDetails(user);
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+            User user = repository.getReferenceById(id);
+            user.setAtivo(false);
     }
 }

@@ -42,6 +42,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
+    private boolean ativo;
+
 
     public User(UserDataRegistration data) {
         this.nome = data.nome();
@@ -51,12 +53,12 @@ public class User implements UserDetails {
         this.telefone = data.telefone();
         this.endereco = data.endereco();
         this.role = Roles.USER;
+        this.ativo = true;
     }
 
     public void setSenha(String senha, PasswordEncoder passwordEncoder) {
         this.senha = passwordEncoder.encode(senha);
     }
-
 
 
     @Override

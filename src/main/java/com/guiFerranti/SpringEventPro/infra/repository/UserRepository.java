@@ -1,5 +1,6 @@
-package com.guiFerranti.SpringEventPro.domain.user;
+package com.guiFerranti.SpringEventPro.infra.repository;
 
+import com.guiFerranti.SpringEventPro.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 

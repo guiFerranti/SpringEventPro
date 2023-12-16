@@ -1,5 +1,6 @@
 package com.guiFerranti.SpringEventPro.domain.user;
 
+import com.guiFerranti.SpringEventPro.infra.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

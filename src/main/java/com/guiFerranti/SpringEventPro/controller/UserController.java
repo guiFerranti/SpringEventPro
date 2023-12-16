@@ -1,10 +1,10 @@
 package com.guiFerranti.SpringEventPro.controller;
 
-import com.guiFerranti.SpringEventPro.domain.user.*;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataDetails;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataList;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataRegistration;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserUpdateInfo;
+import com.guiFerranti.SpringEventPro.infra.repository.UserRepository;
 import com.guiFerranti.SpringEventPro.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,7 +26,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    @Transactional
     public ResponseEntity registry(@RequestBody @Valid UserDataRegistration dados) {
 
         userService.saveUser(dados);
@@ -47,10 +46,15 @@ public class UserController {
     }
 
     @PutMapping
-    @Transactional
     public ResponseEntity update(@RequestBody UserUpdateInfo dados) {
 
         return ResponseEntity.ok(userService.updateUser(dados));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("ok");
     }
 
     

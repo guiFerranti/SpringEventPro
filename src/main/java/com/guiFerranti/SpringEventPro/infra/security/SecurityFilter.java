@@ -1,6 +1,6 @@
 package com.guiFerranti.SpringEventPro.infra.security;
 
-import com.guiFerranti.SpringEventPro.domain.user.UserRepository;
+import com.guiFerranti.SpringEventPro.infra.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
