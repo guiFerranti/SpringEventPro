@@ -2,6 +2,7 @@
 
 Este é um projeto de exemplo para um sistema de gerenciamento de eventos usando Maven, Spring Boot e MySQL.
 
+Obs: para atribuir um admin apenas manualmente.
 ## Funcionalidades
 
 ### Cadastro de Usuários

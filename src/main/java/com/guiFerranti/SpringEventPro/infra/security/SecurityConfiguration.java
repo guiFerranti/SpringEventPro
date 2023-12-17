@@ -1,5 +1,6 @@
 package com.guiFerranti.SpringEventPro.infra.security;
 
+import com.guiFerranti.SpringEventPro.domain.user.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +32,14 @@ public class SecurityConfiguration {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers(HttpMethod.POST, "/user").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/api/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/api/users").permitAll();
+                    req.requestMatchers("/api/events").hasRole(Roles.ADMIN.name());
+                    req.requestMatchers("/api/events/{id}/registrations").hasAnyRole(Roles.ADMIN.name(),
+                            Roles.USER.name());
+                    req.requestMatchers("/api/events/{userId}/registrations/{eventId}").hasAnyRole(Roles.ADMIN.name(),
+                            Roles.USER.name());
+                    req.requestMatchers(HttpMethod.GET, "/api/users").hasRole(Roles.ADMIN.name());
                     req.anyRequest().authenticated();
 
                 })

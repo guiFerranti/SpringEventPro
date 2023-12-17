@@ -1,6 +1,8 @@
 package com.guiFerranti.SpringEventPro.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.guiFerranti.SpringEventPro.domain.address.AddressData;
+import com.guiFerranti.SpringEventPro.domain.event.Event;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataList;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserDataRegistration;
 import com.guiFerranti.SpringEventPro.domain.user.record.UserUpdateInfo;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "User")
@@ -43,6 +46,10 @@ public class User implements UserDetails {
     private Roles role;
 
     private boolean ativo;
+
+    @ManyToMany(mappedBy = "subscribedUsers")
+    @JsonBackReference
+    private List<Event> eventsToGo;
 
 
     public User(UserDataRegistration data) {

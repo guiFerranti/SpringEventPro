@@ -2,8 +2,8 @@ create table events(
 
     id bigint not null auto_increment,
     titulo varchar(100) not null,
-    descricao varchar(100) not null unique,
-    data timestamp not null unique,
+    descricao varchar(100) not null,
+    data timestamp not null,
     max_participantes int unsigned,
     logradouro varchar(100) not null,
     bairro varchar(100) not null,
